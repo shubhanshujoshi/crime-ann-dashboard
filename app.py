@@ -21,7 +21,7 @@ def load_scaler():
 
 model = load_model()
 scaler = load_scaler()
-
+st.write("Model Input Shape:", model.input_shape)
 # -------------------------
 # Load Dataset (Include CSV in GitHub repo)
 # -------------------------
@@ -69,6 +69,9 @@ if st.button("Predict Next Year Crime"):
 
         # Scale
         scaled_input = scaler.transform(input_data).astype(np.float32)
+
+        st.write("Input Shape Before Scaling:", input_data.shape)
+        st.write("Scaled Input Shape:", scaled_input.shape)
 
         # Predict
         prediction = model.predict(scaled_input)
