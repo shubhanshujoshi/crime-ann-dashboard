@@ -67,7 +67,7 @@ if st.button("Predict Next Year Crime"):
         
         scaled_input = scaled_input.astype(np.float32)
 
-        if st.button("Predict Next Year Crime"):
+    if st.button("Predict Next Year Crime"):
 
     input_data = np.array([[state_encoded, crime_encoded]])
 
