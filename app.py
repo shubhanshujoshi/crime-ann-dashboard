@@ -17,8 +17,7 @@ st.write("Upload a crime dataset row to predict TOTAL IPC CRIMES.")
 # -------------------------
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("crime_ann_model.h5")
-
+    return tf.keras.models.load_model("crime_ann_model.keras", compile=False)
 @st.cache_resource
 def load_scaler():
     return joblib.load("scaler.pkl")
