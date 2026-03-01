@@ -43,10 +43,6 @@ st.line_chart(yearly_total)
 st.subheader("🔎 Select Crime Forecast Parameters")
 
 state = st.selectbox("Select State", df["STATE/UT"].unique())
-
-district_df = df[df["STATE/UT"] == state]
-district = st.selectbox("Select District", district_df["DISTRICT"].unique())
-
 crime_columns = df.columns[3:-1]
 crime = st.selectbox("Select Crime Type", crime_columns)
 
