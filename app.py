@@ -67,6 +67,21 @@ if st.button("Predict Next Year Crime"):
         
         scaled_input = scaled_input.astype(np.float32)
 
+        if st.button("Predict Next Year Crime"):
+
+    input_data = np.array([[state_encoded, crime_encoded]])  # or however you're creating it
+
+    st.write("Raw Input:", input_data)
+    st.write("Raw Input Shape:", input_data.shape)
+
+    scaled_input = scaler.transform(input_data)
+
+    st.write("Scaled Input Shape:", scaled_input.shape)
+    st.write("Model Input Shape:", model.input_shape)
+
+    prediction = model.predict(scaled_input)
+
+    st.success(f"Prediction: {prediction[0][0]}")
         prediction = model.predict(scaled_input)
 
         next_year = state_data["YEAR"].max() + 1
