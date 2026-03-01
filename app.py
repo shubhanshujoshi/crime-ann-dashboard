@@ -61,9 +61,11 @@ if st.button("Predict Next Year Crime"):
         # Take last 3 years
         last_3 = state_data[crime].values[-3:]
 
-        input_data = np.array(last_3).reshape(1, -1)
+        input_data = np.array(last_3, dtype=np.float32).reshape(1, 3)
 
         scaled_input = scaler.transform(input_data)
+        
+        scaled_input = scaled_input.astype(np.float32)
 
         prediction = model.predict(scaled_input)
 
