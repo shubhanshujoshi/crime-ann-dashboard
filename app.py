@@ -69,7 +69,7 @@ if st.button("Predict Next Year Crime"):
 
         if st.button("Predict Next Year Crime"):
 
-    input_data = np.array([[state_encoded, crime_encoded]])  # or however you're creating it
+    input_data = np.array([[state_encoded, crime_encoded]])
 
     st.write("Raw Input:", input_data)
     st.write("Raw Input Shape:", input_data.shape)
@@ -82,10 +82,9 @@ if st.button("Predict Next Year Crime"):
     prediction = model.predict(scaled_input)
 
     st.success(f"Prediction: {prediction[0][0]}")
-        prediction = model.predict(scaled_input)
 
-        next_year = state_data["YEAR"].max() + 1
+    next_year = state_data["YEAR"].max() + 1
 
-        st.success(
-            f"Predicted {crime} cases in {state} for {next_year}: {int(prediction[0][0])}"
-        )
+    st.success(
+        f"Predicted {crime} cases in {state} for {next_year}: {int(prediction[0][0])}"
+    )
