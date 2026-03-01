@@ -49,6 +49,9 @@ crime = st.selectbox("Select Crime Type", crime_columns)
 # -------------------------
 # Forecast Logic
 # -------------------------
+# -------------------------
+# Forecast Logic
+# -------------------------
 if st.button("Predict Next Year Crime"):
 
     state_data = df[
@@ -61,30 +64,19 @@ if st.button("Predict Next Year Crime"):
         # Take last 3 years
         last_3 = state_data[crime].values[-3:]
 
+        # Shape must be (1, 3)
         input_data = np.array(last_3, dtype=np.float32).reshape(1, 3)
 
-        scaled_input = scaler.transform(input_data)
-        
-        scaled_input = scaled_input.astype(np.float32)
+        # Scale
+        scaled_input = scaler.transform(input_data).astype(np.float32)
 
-    if st.button("Predict Next Year Crime"):
-
-        input_data = np.array([[state_encoded, crime_encoded]])
-
-        st.write("Raw Input:", input_data)
-        st.write("Raw Input Shape:", input_data.shape)
-
-        scaled_input = scaler.transform(input_data)
-
-        st.write("Scaled Input Shape:", scaled_input.shape)
-        st.write("Model Input Shape:", model.input_shape)
-
+        # Predict
         prediction = model.predict(scaled_input)
-
-        st.success(f"Prediction: {prediction[0][0]}")
 
         next_year = state_data["YEAR"].max() + 1
 
         st.success(
-        f"Predicted {crime} cases in {state} for {next_year}: {int(prediction[0][0])}"
-    )
+            f"Predicted {crime} cases in {state} for {next_year}: {int(prediction[0][0])}"
+        )
+    
+
