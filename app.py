@@ -55,15 +55,15 @@ crime = st.selectbox("Select Crime Type", crime_columns)
 # -------------------------
 if st.button("Predict Next Year Crime"):
 
-   state_data = df[
-    df["STATE/UT"] == state
-].groupby("YEAR")[crime].sum().reset_index().sort_values("YEAR")
+    state_data = df[
+        df["STATE/UT"] == state
+    ].groupby("YEAR")[crime].sum().reset_index().sort_values("YEAR")
 
-    if len(district_data) < 4:
-        st.error("Not enough historical data for this district.")
+    if len(state_data) < 4:
+        st.error("Not enough historical data for this state.")
     else:
         # Take last 3 years
-        last_3 = district_data[crime].values[-3:]
+        last_3 = state_data[crime].values[-3:]
 
         input_data = np.array(last_3).reshape(1, -1)
 
@@ -71,6 +71,8 @@ if st.button("Predict Next Year Crime"):
 
         prediction = model.predict(scaled_input)
 
-        next_year = district_data["YEAR"].max() + 1
+        next_year = state_data["YEAR"].max() + 1
 
-        st.success(f"Predicted {crime} cases in {district}, {state} for {next_year}: {int(prediction[0][0])}")
+        st.success(
+            f"Predicted {crime} cases in {state} for {next_year}: {int(prediction[0][0])}"
+        )
