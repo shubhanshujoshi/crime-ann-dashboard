@@ -74,12 +74,23 @@ if st.button("Predict Next Year Crime"):
         st.write("Scaled Input Shape:", scaled_input.shape)
 
         # Predict
-        prediction = model.predict(scaled_input)
+        # Predict
+    prediction = model.predict(scaled_input)
 
-        next_year = state_data["YEAR"].max() + 1
+    last_year = state_data["YEAR"].max()
+    last_year_value = state_data[state_data["YEAR"] == last_year][crime].values[0]
 
-        st.success(
-            f"Predicted {crime} cases in {state} for {next_year}: {int(prediction[0][0])}"
-        )
+    next_year = last_year + 1
+    predicted_value = int(prediction[0][0])
+
+    st.markdown("### 📊 Crime Summary")
+
+    st.info(
+        f"🔹 Last year ({last_year}) total {crime} cases in {state}: **{int(last_year_value)}**"
+)
+
+    st.success(
+        f"🔮 Predicted {crime} cases for next year ({next_year}) in {state}: **{predicted_value}**"
+)
     
 
