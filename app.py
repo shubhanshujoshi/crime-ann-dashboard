@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+import joblib
 
 # -----------------------------
 # PAGE CONFIG
@@ -16,7 +17,11 @@ st.set_page_config(
 # -----------------------------
 # LOAD MODEL
 # -----------------------------
+@st.cache_resource
+def load_scaler():
+    return joblib.load("scaler.pkl")
 
+scaler = load_scaler()
 @st.cache_resource
 def load_model():
     model = tf.keras.models.load_model("crime_ann_model.h5", compile=False)
@@ -74,7 +79,8 @@ st.dataframe(input_df)
 
 if st.button("Predict Crime Level"):
 
-    prediction = model.predict(input_data)
+    scaled_input = scaler.transform(input_data)
+    prediction = model.predict(scaled_input)
 
     st.subheader("Prediction Result")
 
