@@ -55,10 +55,9 @@ crime = st.selectbox("Select Crime Type", crime_columns)
 # -------------------------
 if st.button("Predict Next Year Crime"):
 
-    district_data = df[
-        (df["STATE/UT"] == state) &
-        (df["DISTRICT"] == district)
-    ].sort_values("YEAR")
+   state_data = df[
+    df["STATE/UT"] == state
+].groupby("YEAR")[crime].sum().reset_index().sort_values("YEAR")
 
     if len(district_data) < 4:
         st.error("Not enough historical data for this district.")
